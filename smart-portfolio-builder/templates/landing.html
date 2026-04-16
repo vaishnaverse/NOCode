@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Portfolio Builder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #0a0f1c;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: -1;
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: 60px 60px;
+            }
+        }
+
+        .navbar {
+            padding: 20px 0;
+            background: transparent;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .hero span {
+            background: linear-gradient(90deg, #2563eb, #0ea5e9, #6366f1);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #9ca3af;
+            max-width: 700px;
+            margin: 30px auto;
+        }
+
+        .btn-main {
+            background: linear-gradient(90deg, #2563eb, #0ea5e9);
+            border: none;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: 0.3s ease;
+        }
+
+        .btn-main:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(14, 165, 233, 0.4);
+        }
+
+        .statement {
+            padding: 120px 20px;
+            text-align: center;
+        }
+
+        .statement h2 {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .statement span {
+            color: #0ea5e9;
+        }
+
+        .cta {
+            padding: 120px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #1e3a8a, #0ea5e9);
+        }
+
+        footer {
+            padding: 30px;
+            text-align: center;
+            color: #6b7280;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4" href="#">SmartPortfolio</a>
+            <div>
+                <a href="{{ url_for('login') }}" class="btn btn-outline-light me-2">Login</a>
+                <a href="{{ url_for('register') }}" class="btn btn-main">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1>
+                Design Your <span>Digital Identity</span><br>
+                With Intelligence
+            </h1>
+
+            <p>
+                An advanced portfolio generation system that transforms your skills, projects and achievements into a
+                powerful professional presence.
+            </p>
+
+            <a href="{{ url_for('register') }}" class="btn btn-main me-3">Start Building</a>
+            <a href="#impact" class="btn btn-outline-light">Learn More</a>
+        </div>
+    </section>
+
+    <section id="impact" class="statement">
+        <h2>
+            Your Portfolio Is More Than A <span>Resume.</span><br>
+            It Is Your Competitive Advantage.
+        </h2>
+    </section>
+
+    <section class="cta">
+        <h2 class="mb-4">Build. Publish. Lead.</h2>
+        <p class="mb-4">Create a professional identity that stands out in every opportunity.</p>
+        <a href="{{ url_for('register') }}" class="btn btn-light px-4 py-2">Create My Portfolio</a>
+    </section>
+
+    <footer>
+        © 2026 Smart Portfolio Builder | Built by Amruta
+    </footer>
+
+</body>
+
+</html>
