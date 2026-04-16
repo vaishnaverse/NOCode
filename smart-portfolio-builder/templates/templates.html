@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Select Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f1f5f9;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .template-card {
+            border-radius: 25px;
+            overflow: hidden;
+            transition: 0.4s;
+            background: white;
+        }
+
+        .template-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .preview-img {
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .badge-feature {
+            background: #e0e7ff;
+            color: #4338ca;
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+            margin: 3px;
+            display: inline-block;
+        }
+
+        .btn-use {
+            border-radius: 50px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container py-5">
+
+        <h1 class="text-center mb-5 fw-bold">Choose Your Premium Template</h1>
+
+        <div class="row g-4">
+
+            <!-- TEMPLATE 1 -->
+            <div class="col-md-4">
+                <div class="card template-card shadow">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085"
+                        class="card-img-top preview-img">
+                    <div class="card-body">
+                        <h5>Modern Tech</h5>
+                        <div>
+                            <span class="badge-feature">Dark Mode</span>
+                            <span class="badge-feature">Hero Section</span>
+                            <span class="badge-feature">Project Grid</span>
+                            <span class="badge-feature">Contact Form</span>
+                        </div>
+                        <a href="{{ url_for('create_portfolio') }}?template=modern"
+                            class="btn btn-dark w-100 mt-3 btn-use">
+                            Use Template
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TEMPLATE 2 -->
+            <div class="col-md-4">
+                <div class="card template-card shadow">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"
+                        class="card-img-top preview-img">
+                    <div class="card-body">
+                        <h5>Creative Gradient</h5>
+                        <div>
+                            <span class="badge-feature">Animated Hero</span>
+                            <span class="badge-feature">Gallery Layout</span>
+                            <span class="badge-feature">Skills Bar</span>
+                            <span class="badge-feature">Social Icons</span>
+                        </div>
+                        <a href="{{ url_for('create_portfolio') }}?template=creative"
+                            class="btn btn-primary w-100 mt-3 btn-use">
+                            Use Template
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TEMPLATE 3 -->
+            <div class="col-md-4">
+                <div class="card template-card shadow">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978"
+                        class="card-img-top preview-img">
+                    <div class="card-body">
+                        <h5>Corporate Pro</h5>
+                        <div>
+                            <span class="badge-feature">Timeline</span>
+                            <span class="badge-feature">Services Section</span>
+                            <span class="badge-feature">Testimonials</span>
+                            <span class="badge-feature">Clean UI</span>
+                        </div>
+                        <a href="{{ url_for('create_portfolio') }}?template=corporate"
+                            class="btn btn-info w-100 mt-3 btn-use">
+                            Use Template
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TEMPLATE 4 -->
+            <div class="col-md-4">
+                <div class="card template-card shadow">
+                    <img src="https://images.unsplash.com/photo-1484417894907-623942c8ee29"
+                        class="card-img-top preview-img">
+                    <div class="card-body">
+                        <h5>Minimal Elegant</h5>
+                        <div>
+                            <span class="badge-feature">Simple Layout</span>
+                            <span class="badge-feature">Typography Focus</span>
+                            <span class="badge-feature">Portfolio Cards</span>
+                            <span class="badge-feature">Light Theme</span>
+                        </div>
+                        <a href="{{ url_for('create_portfolio') }}?template=minimal"
+                            class="btn btn-success w-100 mt-3 btn-use">
+                            Use Template
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TEMPLATE 5 -->
+            <div class="col-md-4">
+                <div class="card template-card shadow">
+                    <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8"
+                        class="card-img-top preview-img">
+                    <div class="card-body">
+                        <h5>Sidebar Layout</h5>
+                        <div>
+                            <span class="badge-feature">Fixed Sidebar</span>
+                            <span class="badge-feature">Resume Section</span>
+                            <span class="badge-feature">Skill Progress</span>
+                            <span class="badge-feature">Download CV</span>
+                        </div>
+                        <a href="{{ url_for('create_portfolio') }}?template=sidebar"
+                            class="btn btn-warning w-100 mt-3 btn-use">
+                            Use Template
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TEMPLATE 6 -->
+            <div class="col-md-4">
+                <div class="card template-card shadow">
+                    <img src="https://images.unsplash.com/photo-1492724441997-5dc865305da7"
+                        class="card-img-top preview-img">
+                    <div class="card-body">
+                        <h5>Dark Premium</h5>
+                        <div>
+                            <span class="badge-feature">Glass Effect</span>
+                            <span class="badge-feature">Animation</span>
+                            <span class="badge-feature">Project Slider</span>
+                            <span class="badge-feature">Modern UI</span>
+                        </div>
+                        <a href="{{ url_for('create_portfolio') }}?template=dark"
+                            class="btn btn-danger w-100 mt-3 btn-use">
+                            Use Template
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
