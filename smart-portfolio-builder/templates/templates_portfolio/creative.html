@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Creative Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: black;
+            color: white;
+        }
+
+        .big-text {
+            font-size: 6vw;
+            font-weight: 800;
+            padding: 100px 40px;
+        }
+
+        .about-section {
+            background: #111;
+            padding: 80px 40px;
+        }
+
+        .skills-section {
+            padding: 80px 40px;
+            background: linear-gradient(45deg, #ff4b2b, #ff416c);
+        }
+
+        .projects-section {
+            padding: 80px 40px;
+            background: #111;
+        }
+
+        .project-card {
+            background: #222;
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+        }
+
+        .contact-section {
+            padding: 80px 40px;
+            text-align: center;
+            background: black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HUGE NAME HERO -->
+    <div class="big-text">
+        {{ data.name }}<br>
+        <span style="color:#ff416c;">{{ data.tagline }}</span>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="about-section">
+        <h2>About Me</h2>
+        <p>{{ data.about }}</p>
+    </div>
+
+    <!-- SKILLS BIG STYLE -->
+    <div class="skills-section">
+        <h2>Skills</h2>
+        <p>
+            {% for skill in data.skills.split(',') %}
+            {{ skill.strip() }} •
+            {% endfor %}
+        </p>
+    </div>
+
+    <!-- PROJECTS STACKED -->
+    <div class="projects-section">
+        <h2>Selected Work</h2>
+
+        {% for key, value in data.items() %}
+        {% if "project_title_" in key and value %}
+        {% set num = key.split('_')[-1] %}
+        <div class="project-card">
+            <h3>{{ value }}</h3>
+            <p>{{ data["project_desc_" + num] }}</p>
+            <a href="{{ data[" project_link_" + num] }}" target="_blank" style="color:#ff416c;">View Project</a>
+        </div>
+        {% endif %}
+        {% endfor %}
+
+    </div>
+
+    <!-- CONTACT -->
+    <div class="contact-section">
+        <h2>Contact</h2>
+        <p>{{ data.email }}</p>
+        <p>{{ data.phone }}</p>
+    </div>
+
+</body>
+
+</html>
