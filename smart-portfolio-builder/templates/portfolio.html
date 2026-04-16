@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{ data[0] if data else "My Portfolio" }}</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/4c2e8e2b8a.js" crossorigin="anonymous"></script>
+
+    <style>
+        :root {
+            --bg: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1f1c2c);
+            --text: white;
+            --card: rgba(255, 255, 255, 0.08);
+        }
+
+        body.light {
+            --bg: #f4f6f9;
+            --text: #222;
+            --card: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
+            color: var(--text);
+            min-height: 100vh;
+            padding: 60px 20px;
+            transition: 0.3s;
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .avatar img,
+        .avatar-letter {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            object-fit: cover;
+        }
+
+        h1 {
+            font-size: 44px;
+            font-weight: 800;
+            margin-top: 20px;
+        }
+
+        .title {
+            font-size: 20px;
+            opacity: 0.8;
+            margin-top: 8px;
+            min-height: 24px;
+        }
+
+        .location {
+            margin-top: 8px;
+            opacity: 0.7;
+        }
+
+        .buttons {
+            margin-top: 25px;
+        }
+
+        .buttons a,
+        .copy-btn {
+            text-decoration: none;
+            margin: 8px;
+            padding: 12px 24px;
+            border-radius: 30px;
+            background: var(--card);
+            color: var(--text);
+            transition: 0.3s;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .buttons a:hover,
+        .copy-btn:hover {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .section {
+            margin-bottom: 70px;
+        }
+
+        .section h2 {
+            font-size: 26px;
+            margin-bottom: 20px;
+            border-left: 5px solid #ff416c;
+            padding-left: 12px;
+        }
+
+        .card {
+            background: var(--card);
+            padding: 35px;
+            border-radius: 20px;
+            line-height: 1.7;
+        }
+
+        .skills span {
+            display: inline-block;
+            margin: 8px;
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: var(--card);
+            transition: 0.3s;
+        }
+
+        .skills span:hover {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+        }
+
+        .resume-btn {
+            display: block;
+            width: fit-content;
+            margin: 50px auto;
+            padding: 14px 30px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        @media(max-width:768px) {
+            h1 {
+                font-size: 30px;
+            }
+
+            .avatar img,
+            .avatar-letter {
+                width: 120px;
+                height: 120px;
+                font-size: 45px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <div class="container">
+
+        {% if data %}
+
+        <div class="hero">
+
+            <div class="avatar">
+                {% if data[9] %}
+                <img src="{{ url_for('static', filename='uploads/' + data[9]) }}">
+                {% else %}
+                <div class="avatar-letter">
+                    {{ data[0][0] if data[0] else "U" }}
+                </div>
+                {% endif %}
+            </div>
+
+            <h1>{{ data[0] }}</h1>
+
+            <div class="title" id="typing"></div>
+
+            <div class="location">📍 {{ data[2] }}</div>
+
+            <div class="buttons">
+                {% if data[7] %}
+                <a href="{{ data[7] }}" target="_blank">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                {% endif %}
+
+                {% if data[8] %}
+                <a href="{{ data[8] }}" target="_blank">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+                {% endif %}
+
+                <button class="copy-btn" onclick="copyLink()">
+                    🔗 Copy Link
+                </button>
+            </div>
+
+        </div>
+
+        {% if data[3] %}
+        <div class="section">
+            <h2>About Me</h2>
+            <div class="card">{{ data[3] }}</div>
+        </div>
+        {% endif %}
+
+        {% if data[4] %}
+        <div class="section">
+            <h2>🚀 Skills</h2>
+            <div class="skills">
+                {% for skill in data[4].split(',') %}
+                <span>{{ skill.strip() }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if data[5] %}
+        <div class="section">
+            <h2>📂 Projects</h2>
+            <div class="card">{{ data[5] }}</div>
+        </div>
+        {% endif %}
+
+        {% if data[6] %}
+        <div class="section">
+            <h2>💼 Experience</h2>
+            <div class="card">{{ data[6] }}</div>
+        </div>
+        {% endif %}
+
+        <a href="{{ url_for('download_resume') }}" class="resume-btn">
+            📄 Download Resume
+        </a>
+
+        {% else %}
+        <p style="text-align:center;">No portfolio created yet.</p>
+        {% endif %}
+
+    </div>
+
+    <script>
+        /* Typing Animation */
+        const text = "{{ data[1] if data and data[1] else '' }}";
+        let i = 0;
+        function typeEffect() {
+            if (i < text.length) {
+                document.getElementById("typing").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeEffect, 50);
+            }
+        }
+        typeEffect();
+
+        /* Theme Toggle */
+        function toggleTheme() {
+            document.body.classList.toggle("light");
+        }
+
+        /* Copy Public Link */
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href);
+            alert("Portfolio link copied!");
+        }
+    </script>
+
+</body>
+
+</html>
