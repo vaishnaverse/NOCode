@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Create Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #e0e7ff, #f8fafc);
+        }
+
+        .main-card {
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        .progress {
+            height: 8px;
+            border-radius: 20px;
+        }
+
+        .preview-box {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-title {
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container py-5">
+
+        <div class="main-card">
+
+            <h2 class="text-center mb-4">Build Your Professional Portfolio</h2>
+
+            <div class="progress mb-4">
+                <div class="progress-bar bg-dark" id="progressBar" style="width:20%"></div>
+            </div>
+
+            <form method="POST">
+
+                <input type="hidden" name="selected_template" value="{{ template }}">
+
+                <!-- STEP 1 : BASIC INFO -->
+                <div class="step active">
+                    <h5 class="section-title">Basic Information</h5>
+
+                    <input type="text" name="name" class="form-control mb-3" placeholder="Full Name"
+                        oninput="updatePreview()">
+                    <input type="text" name="tagline" class="form-control mb-3" placeholder="Professional Tagline"
+                        oninput="updatePreview()">
+                    <textarea name="about" class="form-control mb-3" rows="4" placeholder="About Me"
+                        oninput="updatePreview()"></textarea>
+                    <input type="text" name="profile_image" class="form-control mb-3" placeholder="Profile Image URL"
+                        oninput="updatePreview()">
+
+                    <button type="button" class="btn btn-dark" onclick="nextStep()">Next</button>
+                </div>
+
+                <!-- STEP 2 : CONTACT & SOCIAL -->
+                <div class="step">
+                    <h5 class="section-title">Contact & Social Links</h5>
+
+                    <input type="email" name="email" class="form-control mb-3" placeholder="Email">
+                    <input type="text" name="phone" class="form-control mb-3" placeholder="Phone Number">
+                    <input type="text" name="location" class="form-control mb-3" placeholder="Location">
+                    <input type="text" name="linkedin" class="form-control mb-3" placeholder="LinkedIn URL">
+                    <input type="text" name="github" class="form-control mb-3" placeholder="GitHub URL">
+                    <input type="text" name="portfolio_link" class="form-control mb-3" placeholder="Other Website Link">
+
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">Back</button>
+                    <button type="button" class="btn btn-dark" onclick="nextStep()">Next</button>
+                </div>
+
+                <!-- STEP 3 : SKILLS & EXPERIENCE -->
+                <div class="step">
+                    <h5 class="section-title">Skills & Experience</h5>
+
+                    <input type="text" name="skills" class="form-control mb-3" placeholder="Skills (Comma separated)">
+                    <input type="text" name="experience" class="form-control mb-3"
+                        placeholder="Work Experience Summary">
+                    <input type="text" name="education" class="form-control mb-3" placeholder="Education">
+                    <input type="text" name="certifications" class="form-control mb-3"
+                        placeholder="Certifications (Comma separated)">
+                    <input type="text" name="languages" class="form-control mb-3" placeholder="Languages Known">
+                    <input type="text" name="resume_link" class="form-control mb-3" placeholder="Resume Link">
+
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">Back</button>
+                    <button type="button" class="btn btn-dark" onclick="nextStep()">Next</button>
+                </div>
+
+                <!-- STEP 4 : PROJECTS -->
+                <div class="step">
+                    <h5 class="section-title">Projects</h5>
+
+                    <div id="projectsContainer">
+                        <div class="project-item">
+                            <input type="text" name="project_title_1" class="form-control mb-2"
+                                placeholder="Project Title">
+                            <textarea name="project_desc_1" class="form-control mb-2"
+                                placeholder="Project Description"></textarea>
+                            <input type="text" name="project_link_1" class="form-control mb-3"
+                                placeholder="Project Link">
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-outline-dark mb-3" onclick="addProject()">+ Add Another
+                        Project</button>
+
+                    <br>
+
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">Back</button>
+                    <button type="submit" class="btn btn-success">Generate Portfolio</button>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- LIVE PREVIEW -->
+        <div class="preview-box mt-5">
+            <h4 class="mb-3">Live Preview</h4>
+            <img id="previewImg" src="" width="100" class="mb-3 rounded-circle">
+            <h3 id="previewName">Your Name</h3>
+            <p id="previewTagline">Professional Tagline</p>
+            <p id="previewAbout">About section preview...</p>
+        </div>
+
+    </div>
+
+    <script>
+        let currentStep = 0;
+        let steps = document.querySelectorAll(".step");
+        let progressBar = document.getElementById("progressBar");
+
+        function showStep(index) {
+            steps.forEach(step => step.classList.remove("active"));
+            steps[index].classList.add("active");
+            progressBar.style.width = ((index + 1) / steps.length) * 100 + "%";
+        }
+
+        function nextStep() {
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+
+        function updatePreview() {
+            document.getElementById("previewName").innerText =
+                document.querySelector("[name='name']").value;
+
+            document.getElementById("previewTagline").innerText =
+                document.querySelector("[name='tagline']").value;
+
+            document.getElementById("previewAbout").innerText =
+                document.querySelector("[name='about']").value;
+
+            document.getElementById("previewImg").src =
+                document.querySelector("[name='profile_image']").value;
+        }
+
+        let projectCount = 1;
+        function addProject() {
+            projectCount++;
+            let div = document.createElement("div");
+            div.innerHTML = `
+        <input type="text" name="project_title_${projectCount}" class="form-control mb-2" placeholder="Project Title">
+        <textarea name="project_desc_${projectCount}" class="form-control mb-2" placeholder="Project Description"></textarea>
+        <input type="text" name="project_link_${projectCount}" class="form-control mb-3" placeholder="Project Link">
+    `;
+            document.getElementById("projectsContainer").appendChild(div);
+        }
+    </script>
+
+</body>
+
+</html>
